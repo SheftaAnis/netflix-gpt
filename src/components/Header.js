@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {addUser,removeUser} from '../utils/userSlice';
-import { LOGO } from '../utils/constants';
+import { LOGO, SUPPORTED_LANGUAGES } from '../utils/constants';
+import { toggleGptSearchView } from '../utils/gptSlice';
+import { changelanguage } from '../utils/configSlice';
 
 const Header = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
    const user =useSelector((store)=>store.user);
+   const showGptSearch=useSelector((store)=>store.gpt.showGptSearch);
   const handleSignOut=()=>{
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -41,13 +44,26 @@ const Header = () => {
     return ()=> unsubscribe();
   },[])
 
+  const handleGptSearchClick=()=>{
+    dispatch(toggleGptSearchView());
+  }
+
+  const handleLanguageChange=(e)=>{
+    dispatch(changelanguage(e.target.value));
+  }
+
   return (
-    <div className='absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between'>
+    <div className='absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between'>
      <img
-     className='w-44'
+     className='w-44 mx-auto md:mx-0'
       src={LOGO} alt="logo"/>
-      <div className='flex p-2'>
-        <img className='w-12 h-12 ' src="https://occ-0-2164-3467.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABcLtVOXjghzlDrVwmPHGQtkXjoJPmpISBttze62ZpxaaFWq-LZVH5yZxMD15UVLU6nd4GIUtTSHOMsbUOdPCIYRL2-2bGNU.png?r=b38" alt="user icon"/>
+      <div className='flex p-2 justify-between'>
+        { showGptSearch && (<select className='p-2 bg-gray-900 text-white m-3 rounded-lg' onChange={handleLanguageChange}>
+          {SUPPORTED_LANGUAGES.map(lang=> <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
+          
+        </select>)}
+        <button className='py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearchClick}> { showGptSearch ? "Home" : "GPT Search"}</button>
+        <img className='hidden md:block w-12 h-12 ' src="https://occ-0-2164-3467.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABcLtVOXjghzlDrVwmPHGQtkXjoJPmpISBttze62ZpxaaFWq-LZVH5yZxMD15UVLU6nd4GIUtTSHOMsbUOdPCIYRL2-2bGNU.png?r=b38" alt="user icon"/>
         <button onClick={handleSignOut} className='font-bold text-white'>Sign Out</button>
       </div>
     </div>
