@@ -9,7 +9,7 @@ const GPTSearch = () => {
   return (
     <>
       <div className='fixed -z-10'>
-        <img className='h-screen md:h-full object-cover' src={BG_URL} alt="body" />
+        <img className='h-screen md:h-full object-cover' src={BG_URL} alt="body"  loading="eager" />
       </div>
       <div>
         <GptSearchBar setTmdbResults={setTmdbResults} />
