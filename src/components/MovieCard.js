@@ -1,14 +1,20 @@
-import React from 'react'
-import { IMG_CDN_URL } from '../utils/constants'
+import React from 'react';
 
-const MovieCard = ({posterPath}) => {
+const MovieCard = ({ posterPath, title }) => {
+  const imageURL = posterPath
+    ? `https://image.tmdb.org/t/p/w500${posterPath}`
+    : '/no-image.jpg'; // fallback
+
   return (
-    <div className=' w-36 md:w-48 pr-4'>
-      <img alt="movie card"
-      src={IMG_CDN_URL + posterPath}
+    <div className='w-[150px] m-2 text-center'>
+      <img
+        className='w-full h-[225px] object-cover rounded-md shadow-md'
+        src={imageURL}
+        alt={title}
       />
+      <p className='text-sm mt-2'>{title}</p>
     </div>
-  )
-}
+  );
+};
 
-export default MovieCard
+export default MovieCard;

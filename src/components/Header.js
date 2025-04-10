@@ -62,7 +62,7 @@ const Header = () => {
           {SUPPORTED_LANGUAGES.map(lang=> <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
           
         </select>)}
-        <button className='py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearchClick}> { showGptSearch ? "Home" : "GPT Search"}</button>
+        <button className='py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg' onClick={handleGptSearchClick}> { showGptSearch ? "Home" : "Search"}</button>
         <img className='hidden md:block w-12 h-12 ' src="https://occ-0-2164-3467.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABcLtVOXjghzlDrVwmPHGQtkXjoJPmpISBttze62ZpxaaFWq-LZVH5yZxMD15UVLU6nd4GIUtTSHOMsbUOdPCIYRL2-2bGNU.png?r=b38" alt="user icon"/>
         <button onClick={handleSignOut} className='font-bold text-white'>Sign Out</button>
       </div>
